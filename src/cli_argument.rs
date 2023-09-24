@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use std::env;
-use std::process::exit;
 
 #[derive(Debug)]
 pub struct CliArguments {

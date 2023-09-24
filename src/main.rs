@@ -2,7 +2,7 @@ mod cli_argument;
 
 use pathfinding::prelude::dijkstra;
 use serde::{Deserialize, Serialize};
-use std::{collections::HashMap, fs, process::exit};
+use std::{collections::HashMap, fs};
 
 fn get_map(path: String) -> HashMap<u32, HashMap<u32, u32>> {
     let map = fs::read_to_string(path).unwrap();
