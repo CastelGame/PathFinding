@@ -26,7 +26,13 @@ struct Output {
 fn main() {
     let args: cli_argument::CliArguments = cli_argument::get();
 
-    let map: HashMap<u32, HashMap<u32, u32>> = get_map(args.file_location);
+    let mut map: HashMap<u32, HashMap<u32, u32>> = get_map(args.file_location);
+    let mut has_map_new_key: bool = false;
+    if !args.start_neighbors.is_empty() {
+        let start_neighbors = args.start_neighbors;
+        map.insert(args.start.clone(), start_neighbors);
+        has_map_new_key = true;
+    }
 
     let reachable: (Vec<u32>, usize) = dijkstra(
         &args.start,
@@ -39,6 +45,10 @@ fn main() {
         path: reachable.0,
         distance: reachable.1,
     };
+
+    if has_map_new_key {
+        map.remove(&args.start);
+    }
 
     print!("{}", serde_json::to_string(&output).unwrap());
 }
